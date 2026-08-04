@@ -126,3 +126,528 @@ html[data-theme="light"] {
 .strength-input {
   touch-action: pan-y;
 }
+
+/* ═══════════════════════════════════════════════
+   RANGE CONTROL — PREMIUM SLIDER
+═══════════════════════════════════════════════ */
+
+/* ── Card ── */
+.rc-card {
+  width: 340px;
+  max-width: 100%;
+  padding: 20px;
+  background: var(--card-bg);
+  border-radius: var(--radius-card);
+  box-shadow: 0 0 0 1px var(--card-ring), var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: var(--row-gap);
+  transition: background-color 0.3s var(--ease-standard);
+}
+.rc-card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 2px 2px 4px;
+}
+.rc-card-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin: 0;
+}
+.rc-card-hint {
+  font-size: 10.5px;
+  color: var(--text-3);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.rc-divider {
+  height: 1px;
+  margin: 1px 0;
+  background: var(--divider);
+  border: 0;
+}
+
+/* ── Row + step button ── */
+.rc-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+}
+.rc-row .rc-field {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.rc-row .rc-field .rc {
+  width: 100%;
+}
+
+.rc-step {
+  flex: none;
+  width: var(--track-h);
+  height: var(--track-h);
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: var(--radius-row);
+  background: var(--step-bg);
+  box-shadow: var(--step-shadow);
+  color: var(--text-3);
+  cursor: pointer;
+  transition:
+    background 0.14s var(--ease-out),
+    color 0.14s var(--ease-out),
+    scale 0.12s var(--ease-spring),
+    box-shadow 0.16s var(--ease-out);
+}
+.rc-step:hover {
+  color: var(--text);
+  background: var(--step-hover-bg);
+  box-shadow: 0 0 0 1px var(--accent-border);
+}
+.rc-step:focus-visible {
+  outline: none;
+  color: var(--text);
+  box-shadow: 0 0 0 2px var(--accent-border), 0 0 0 5px var(--accent-glow);
+}
+.rc-step:active {
+  scale: 0.9;
+}
+
+/* ── Field (label above track) ── */
+.rc-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--field-gap);
+  min-width: 0;
+}
+.rc-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 16px;
+  padding-inline: 3px;
+}
+.rc-toplabel {
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: -0.004em;
+  color: var(--text-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: default;
+  user-select: none;
+  transition: color 0.18s var(--ease-out);
+}
+.rc-field:hover .rc-toplabel,
+.rc-field:focus-within .rc-toplabel {
+  color: var(--text);
+}
+
+/* ── Track ── */
+.rc {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: var(--track-h);
+  border-radius: var(--radius-row);
+  background: var(--track-bg);
+  box-shadow: var(--track-shadow);
+  overflow: hidden;
+  cursor: grab;
+  isolation: isolate;
+  transition:
+    background 0.18s var(--ease-out),
+    box-shadow 0.22s var(--ease-out);
+}
+.rc:hover {
+  background: var(--track-hover);
+}
+.rc.is-drag {
+  cursor: grabbing;
+}
+
+/* focus ring */
+.rc-focus-ring {
+  position: absolute;
+  inset: -3px;
+  border-radius: calc(var(--radius-row) + 3px);
+  box-shadow: 0 0 0 2px var(--accent-border), 0 0 0 4px var(--accent-glow);
+  pointer-events: none;
+  z-index: 20;
+  opacity: 0;
+  transition: opacity 0.18s var(--ease-out);
+}
+.rc-input:focus-visible ~ .rc-focus-ring {
+  opacity: 1;
+}
+
+/* ── Fill ── */
+.rc-fill {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  background: var(--fill-bg);
+  pointer-events: none;
+  z-index: 1;
+  transition:
+    background 0.22s var(--ease-out),
+    width 80ms ease-out,
+    opacity 0.18s var(--ease-out);
+}
+.rc:hover .rc-fill {
+  background: var(--fill-bg-hover);
+}
+.rc.is-drag .rc-fill {
+  background: var(--fill-bg-drag);
+  transition: background 0.22s var(--ease-out), width 0s;
+}
+
+/* ── Capsule thumb ── */
+.rc-thumb {
+  position: absolute;
+  inset-block: var(--thumb-inset);
+  width: var(--thumb-w);
+  border-radius: 7px;
+  translate: -50% 0;
+  background: linear-gradient(175deg, var(--thumb-bg) 0%, var(--thumb-bg-b) 100%);
+  box-shadow: var(--thumb-ring), var(--thumb-shadow);
+  pointer-events: none;
+  z-index: 5;
+  will-change: left, width;
+  transition:
+    box-shadow 0.22s var(--ease-out),
+    width 0.18s var(--ease-spring),
+    left 80ms ease-out,
+    opacity 0.18s var(--ease-out);
+}
+.rc.is-drag .rc-thumb {
+  transition: box-shadow 0.22s var(--ease-out), width 0.18s var(--ease-spring), left 0s;
+}
+/* grip lines */
+.rc-thumb::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--thumb-grip) 0,
+    var(--thumb-grip) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  background-size: 5px 100%;
+  background-position: center;
+  background-repeat: repeat-x;
+  opacity: 0.7;
+  transition: opacity 0.2s var(--ease-out);
+}
+.rc.is-drag .rc-thumb::before {
+  opacity: 0.95;
+}
+/* top glass highlight */
+.rc-thumb::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 1.5px;
+  inset-inline: 3px;
+  height: 4px;
+  border-radius: 4px;
+  background: var(--thumb-gloss);
+  opacity: 0.9;
+}
+.rc:hover .rc-thumb {
+  width: 24px;
+  box-shadow: var(--thumb-ring), var(--thumb-shadow-hover);
+}
+.rc.is-drag .rc-thumb {
+  width: 26px;
+  box-shadow: var(--thumb-shadow-drag);
+}
+
+/* ── Tick marks (fade in during drag) ── */
+.rc-ticks {
+  position: absolute;
+  inset: auto 14px 4px;
+  height: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.2s var(--ease-out);
+}
+.rc.is-drag .rc-ticks {
+  opacity: 1;
+}
+.rc-ticks i {
+  display: block;
+  width: 1px;
+  height: 3px;
+  background: var(--tick);
+  border-radius: 1px;
+}
+.rc-ticks i:nth-child(5n + 1) {
+  height: 6px;
+}
+
+/* ── Ambient glow blob (drag only) ── */
+.rc-glow {
+  position: absolute;
+  inset-block-start: 50%;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 68%);
+  translate: -50% -50%;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+  will-change: left, opacity;
+  transition: opacity 0.28s var(--ease-out);
+}
+.rc.is-drag .rc-glow {
+  opacity: 1;
+}
+
+/* ── Modified mark + reset ── */
+.rc-mark {
+  flex: none;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+  opacity: 0;
+  scale: 0.4;
+  transition:
+    opacity 0.18s var(--ease-out),
+    scale 0.22s var(--ease-spring);
+}
+.rc-field.is-mod .rc-mark {
+  opacity: 1;
+  scale: 1;
+}
+.rc-field.is-mod:hover .rc-mark,
+.rc-field.is-mod:focus-within .rc-mark {
+  opacity: 0;
+  scale: 0.4;
+}
+
+.rc-reset {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-inline-start: -1px;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-3);
+  cursor: pointer;
+  opacity: 0;
+  scale: 0.6;
+  rotate: -20deg;
+  pointer-events: none;
+  transition:
+    opacity 0.18s var(--ease-out),
+    scale 0.22s var(--ease-spring),
+    rotate 0.22s var(--ease-spring),
+    color 0.14s var(--ease-out),
+    background 0.14s var(--ease-out);
+}
+.rc-field.is-mod:hover .rc-reset,
+.rc-field.is-mod:focus-within .rc-reset {
+  opacity: 1;
+  scale: 1;
+  rotate: 0deg;
+  pointer-events: auto;
+}
+.rc-reset:hover {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+.rc-reset:focus-visible {
+  outline: none;
+  opacity: 1;
+  scale: 1;
+  rotate: 0deg;
+  pointer-events: auto;
+  color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-border);
+}
+.rc-reset:active {
+  scale: 0.85;
+}
+
+/* ── Value badge ── */
+.rc-val {
+  position: relative;
+  z-index: 6;
+  flex: none;
+  margin-inline: auto 6px;
+  display: flex;
+  align-items: baseline;
+  gap: 1.5px;
+  height: 26px;
+  padding-inline: 9px;
+  border-radius: var(--radius-badge);
+  background: var(--badge-bg);
+  box-shadow: var(--badge-shadow);
+  font-family: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  color: var(--text);
+  line-height: 26px;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  transition:
+    background 0.18s var(--ease-out),
+    box-shadow 0.18s var(--ease-out),
+    opacity 0.16s var(--ease-out);
+}
+.rc-val em {
+  font-style: normal;
+  font-size: 9.5px;
+  font-weight: 400;
+  color: var(--text-3);
+  letter-spacing: 0;
+}
+.rc-num {
+  display: inline-block;
+  min-width: 3ch;
+  text-align: right;
+}
+.rc:hover .rc-val,
+.rc.is-drag .rc-val {
+  background: var(--accent-soft);
+  box-shadow: 0 0 0 1px var(--accent-border), inset 0 1px 0 var(--badge-gloss);
+}
+
+/* ── Native range input ── */
+.rc-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  cursor: inherit;
+  z-index: 10;
+  touch-action: pan-y;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+.rc-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 28px;
+  height: var(--track-h);
+  background: transparent;
+  border: 0;
+}
+.rc-input::-moz-range-thumb {
+  width: 28px;
+  height: var(--track-h);
+  background: transparent;
+  border: 0;
+}
+.rc-input::-webkit-slider-runnable-track {
+  background: transparent;
+  border: 0;
+}
+.rc-input::-moz-range-track {
+  background: transparent;
+  border: 0;
+}
+.rc-input::-moz-range-progress {
+  background: transparent;
+}
+.rc-input::-moz-focus-outer {
+  border: 0;
+}
+
+/* ── Inline text edit (dblclick) ── */
+.rc-edit {
+  position: absolute;
+  z-index: 11;
+  inset-inline-end: 6px;
+  inset-block-start: 50%;
+  translate: 0 -50%;
+  width: 88px;
+  height: 28px;
+  padding-inline: 9px;
+  border: none;
+  border-radius: var(--radius-badge);
+  background: var(--card-bg);
+  box-shadow: 0 0 0 1.5px var(--accent-border), 0 0 0 4px var(--accent-glow);
+  color: var(--text);
+  font-family: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+  font-size: 11px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  outline: none;
+  display: none;
+}
+.rc.is-edit .rc-edit {
+  display: block;
+}
+.rc.is-edit .rc-val {
+  opacity: 0;
+  pointer-events: none;
+}
+.rc.is-edit .rc-input {
+  pointer-events: none;
+}
+.rc.is-edit .rc-thumb,
+.rc.is-edit .rc-fill,
+.rc.is-edit .rc-glow {
+  opacity: 0;
+}
+.rc.is-edit {
+  cursor: default;
+}
+
+/* ── Accessibility / responsive ── */
+@media (hover: none) {
+  .rc-field.is-mod .rc-mark {
+    opacity: 1;
+    scale: 1;
+  }
+  .rc-thumb {
+    width: 24px;
+  }
+}
+@media (prefers-contrast: more) {
+  .rc {
+    box-shadow: 0 0 0 1.5px var(--text-2);
+  }
+  .rc-toplabel {
+    color: var(--text);
+  }
+  .rc-val {
+    box-shadow: 0 0 0 1.5px var(--text-2);
+  }
+}
+@media (max-width: 400px) {
+  .rc-card-hint {
+    display: none;
+  }
+}

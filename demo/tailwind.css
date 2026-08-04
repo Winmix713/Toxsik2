@@ -62,6 +62,62 @@
 
     --hero-search-light-bg: rgba(0, 0, 0, 0.04);
     --hero-search-light-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04), inset 0 1px 0 0 rgba(0, 0, 0, 0.02);
+
+    /* ── Range Control premium slider ── */
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-standard: cubic-bezier(0.32, 0.72, 0, 1);
+
+    --accent-h: 42;
+    --accent: oklch(0.72 0.185 var(--accent-h));
+    --accent-soft: oklch(0.72 0.185 var(--accent-h) / 0.16);
+    --accent-glow: oklch(0.72 0.185 var(--accent-h) / 0.28);
+    --accent-border: oklch(0.72 0.185 var(--accent-h) / 0.48);
+
+    --radius-card: 18px;
+    --radius-row: 12px;
+    --radius-badge: 7px;
+    --track-h: 40px;
+    --thumb-w: 22px;
+    --thumb-inset: 5px;
+    --field-gap: 5px;
+    --row-gap: 13px;
+
+    --page-bg: #0d0d10;
+    --page-bg-2: #141417;
+    --card-bg: #18181c;
+    --card-ring: rgba(255, 255, 255, 0.07);
+    --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.6), 0 8px 24px -8px rgba(0, 0, 0, 0.7), 0 32px 64px -24px rgba(0, 0, 0, 0.5);
+
+    --track-bg: rgba(255, 255, 255, 0.07);
+    --track-hover: rgba(255, 255, 255, 0.09);
+    --track-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.07), inset 0 1.5px 4px rgba(0, 0, 0, 0.65);
+
+    --fill-bg: rgba(255, 255, 255, 0.1);
+    --fill-bg-hover: rgba(255, 255, 255, 0.13);
+    --fill-bg-drag: rgba(255, 255, 255, 0.16);
+
+    --thumb-bg: #3c3c42;
+    --thumb-bg-b: #28282e;
+    --thumb-gloss: rgba(255, 255, 255, 0.14);
+    --thumb-ring: 0 0 0 1px rgba(255, 255, 255, 0.13), inset 0 1px 0 rgba(255, 255, 255, 0.11);
+    --thumb-shadow: 0 1px 2px rgba(0, 0, 0, 0.6), 0 3px 10px -2px rgba(0, 0, 0, 0.65), 0 8px 20px -6px rgba(0, 0, 0, 0.5);
+    --thumb-shadow-hover: 0 2px 5px rgba(0, 0, 0, 0.7), 0 7px 20px -3px rgba(0, 0, 0, 0.75), 0 16px 40px -8px rgba(0, 0, 0, 0.6);
+    --thumb-shadow-drag: 0 2px 8px rgba(0, 0, 0, 0.75), 0 10px 28px -4px rgba(0, 0, 0, 0.8), 0 22px 52px -10px rgba(0, 0, 0, 0.65), 0 0 0 1.5px var(--accent-border), 0 0 16px 3px var(--accent-glow);
+    --thumb-grip: rgba(255, 255, 255, 0.22);
+
+    --badge-bg: rgba(255, 255, 255, 0.05);
+    --badge-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.09);
+    --badge-gloss: rgba(255, 255, 255, 0.06);
+
+    --step-bg: rgba(255, 255, 255, 0.05);
+    --step-hover-bg: rgba(255, 255, 255, 0.09);
+    --step-shadow: 0 0 0 1px rgba(255, 255, 255, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 1px 3px rgba(0, 0, 0, 0.4);
+
+    --text-2: #a0a0aa;
+    --text-3: #606068;
+    --tick: rgba(255, 255, 255, 0.12);
+    --divider: rgba(255, 255, 255, 0.06);
   }
 
   html[data-theme="light"] {
@@ -115,6 +171,43 @@
     --mock-chat-placeholder: #9a9a9a;
 
     --copy-hover: rgba(0, 0, 0, 0.06);
+
+    /* ── Range Control premium slider (light) ── */
+    --page-bg: #e8e8ec;
+    --page-bg-2: #f3f3f6;
+    --card-bg: #ffffff;
+    --card-ring: rgba(0, 0, 0, 0.055);
+    --card-shadow: 0 1px 1px rgba(0, 0, 0, 0.03), 0 4px 12px -4px rgba(0, 0, 0, 0.1), 0 20px 48px -16px rgba(0, 0, 0, 0.14);
+
+    --track-bg: rgba(0, 0, 0, 0.055);
+    --track-hover: rgba(0, 0, 0, 0.075);
+    --track-shadow: 0 0 0 1px rgba(0, 0, 0, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.7), inset 0 1px 3px rgba(0, 0, 0, 0.08);
+
+    --fill-bg: rgba(0, 0, 0, 0.1);
+    --fill-bg-hover: rgba(0, 0, 0, 0.13);
+    --fill-bg-drag: rgba(0, 0, 0, 0.15);
+
+    --thumb-bg: #ffffff;
+    --thumb-bg-b: #f0f0f3;
+    --thumb-gloss: rgba(255, 255, 255, 0.55);
+    --thumb-ring: 0 0 0 1px rgba(0, 0, 0, 0.11), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    --thumb-shadow: 0 1px 2px rgba(0, 0, 0, 0.13), 0 3px 10px -2px rgba(0, 0, 0, 0.16), 0 8px 20px -6px rgba(0, 0, 0, 0.12);
+    --thumb-shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.15), 0 6px 16px -3px rgba(0, 0, 0, 0.22), 0 14px 32px -8px rgba(0, 0, 0, 0.16);
+    --thumb-shadow-drag: 0 2px 6px rgba(0, 0, 0, 0.17), 0 8px 24px -4px rgba(0, 0, 0, 0.26), 0 18px 44px -10px rgba(0, 0, 0, 0.18), 0 0 0 1.5px var(--accent-border), 0 0 14px 2px var(--accent-glow);
+    --thumb-grip: rgba(0, 0, 0, 0.16);
+
+    --badge-bg: rgba(0, 0, 0, 0.04);
+    --badge-shadow: 0 0 0 1px rgba(0, 0, 0, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.72);
+    --badge-gloss: rgba(255, 255, 255, 0.1);
+
+    --step-bg: rgba(0, 0, 0, 0.042);
+    --step-hover-bg: rgba(0, 0, 0, 0.065);
+    --step-shadow: 0 0 0 1px rgba(0, 0, 0, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.72), inset 0 1px 3px rgba(0, 0, 0, 0.05);
+
+    --text-2: #5c5d66;
+    --text-3: #9a9ba3;
+    --tick: rgba(0, 0, 0, 0.14);
+    --divider: rgba(0, 0, 0, 0.06);
   }
 
   html {
