@@ -1,0 +1,715 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import 'tailwindcss';
+
+/* ═══════════════════════════════════════════════
+   GLOBAL TOKENS (theme-independent)
+═══════════════════════════════════════════════ */
+:root {
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-standard: cubic-bezier(0.32, 0.72, 0, 1);
+
+  --accent-h: 42;
+  --accent: oklch(0.72 0.185 var(--accent-h));
+  --accent-soft: oklch(0.72 0.185 var(--accent-h) / 0.16);
+  --accent-glow: oklch(0.72 0.185 var(--accent-h) / 0.28);
+  --accent-border: oklch(0.72 0.185 var(--accent-h) / 0.48);
+
+  --radius-card: 18px;
+  --radius-row: 12px;
+  --radius-badge: 7px;
+
+  --track-h: 40px;
+  --thumb-w: 22px;
+  --thumb-inset: 5px;
+
+  --field-gap: 5px;
+  --row-gap: 13px;
+}
+
+/* ── LIGHT ── */
+[data-theme="light"] {
+  color-scheme: light;
+  --page-bg: #e8e8ec;
+  --page-bg-2: #f3f3f6;
+  --card-bg: #ffffff;
+  --card-ring: rgba(0, 0, 0, 0.055);
+  --card-shadow: 0 1px 1px rgba(0,0,0,0.03), 0 4px 12px -4px rgba(0,0,0,0.1), 0 20px 48px -16px rgba(0,0,0,0.14);
+
+  --track-bg: rgba(0, 0, 0, 0.055);
+  --track-hover: rgba(0, 0, 0, 0.075);
+  --track-shadow: 0 0 0 1px rgba(0,0,0,0.09), inset 0 1px 0 rgba(255,255,255,0.7), inset 0 1px 3px rgba(0,0,0,0.08);
+
+  --fill-bg: rgba(0, 0, 0, 0.1);
+  --fill-bg-hover: rgba(0, 0, 0, 0.13);
+  --fill-bg-drag: rgba(0, 0, 0, 0.15);
+
+  --thumb-bg: #ffffff;
+  --thumb-bg-b: #f0f0f3;
+  --thumb-gloss: rgba(255, 255, 255, 0.55);
+  --thumb-ring: 0 0 0 1px rgba(0,0,0,0.11), inset 0 1px 0 rgba(255,255,255,0.95);
+  --thumb-shadow: 0 1px 2px rgba(0,0,0,0.13), 0 3px 10px -2px rgba(0,0,0,0.16), 0 8px 20px -6px rgba(0,0,0,0.12);
+  --thumb-shadow-hover: 0 2px 4px rgba(0,0,0,0.15), 0 6px 16px -3px rgba(0,0,0,0.22), 0 14px 32px -8px rgba(0,0,0,0.16);
+  --thumb-shadow-drag: 0 2px 6px rgba(0,0,0,0.17), 0 8px 24px -4px rgba(0,0,0,0.26), 0 18px 44px -10px rgba(0,0,0,0.18), 0 0 0 1.5px var(--accent-border), 0 0 14px 2px var(--accent-glow);
+  --thumb-grip: rgba(0, 0, 0, 0.16);
+
+  --badge-bg: rgba(0, 0, 0, 0.04);
+  --badge-shadow: 0 0 0 1px rgba(0,0,0,0.09), inset 0 1px 0 rgba(255,255,255,0.72);
+  --badge-gloss: rgba(255, 255, 255, 0.1);
+
+  --step-bg: rgba(0, 0, 0, 0.042);
+  --step-hover-bg: rgba(0, 0, 0, 0.065);
+  --step-shadow: 0 0 0 1px rgba(0,0,0,0.09), inset 0 1px 0 rgba(255,255,255,0.72), inset 0 1px 3px rgba(0,0,0,0.05);
+
+  --text: #161619;
+  --text-2: #5c5d66;
+  --text-3: #9a9ba3;
+  --tick: rgba(0, 0, 0, 0.14);
+  --divider: rgba(0, 0, 0, 0.06);
+}
+
+/* ── DARK ── */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --page-bg: #0d0d10;
+  --page-bg-2: #141417;
+  --card-bg: #18181c;
+  --card-ring: rgba(255, 255, 255, 0.07);
+  --card-shadow: 0 1px 2px rgba(0,0,0,0.6), 0 8px 24px -8px rgba(0,0,0,0.7), 0 32px 64px -24px rgba(0,0,0,0.5);
+
+  --track-bg: rgba(255, 255, 255, 0.07);
+  --track-hover: rgba(255, 255, 255, 0.09);
+  --track-shadow: 0 0 0 1px rgba(255,255,255,0.06), inset 0 1px 0 rgba(255,255,255,0.07), inset 0 1.5px 4px rgba(0,0,0,0.65);
+
+  --fill-bg: rgba(255, 255, 255, 0.1);
+  --fill-bg-hover: rgba(255, 255, 255, 0.13);
+  --fill-bg-drag: rgba(255, 255, 255, 0.16);
+
+  --thumb-bg: #3c3c42;
+  --thumb-bg-b: #28282e;
+  --thumb-gloss: rgba(255, 255, 255, 0.14);
+  --thumb-ring: 0 0 0 1px rgba(255,255,255,0.13), inset 0 1px 0 rgba(255,255,255,0.11);
+  --thumb-shadow: 0 1px 2px rgba(0,0,0,0.6), 0 3px 10px -2px rgba(0,0,0,0.65), 0 8px 20px -6px rgba(0,0,0,0.5);
+  --thumb-shadow-hover: 0 2px 5px rgba(0,0,0,0.7), 0 7px 20px -3px rgba(0,0,0,0.75), 0 16px 40px -8px rgba(0,0,0,0.6);
+  --thumb-shadow-drag: 0 2px 8px rgba(0,0,0,0.75), 0 10px 28px -4px rgba(0,0,0,0.8), 0 22px 52px -10px rgba(0,0,0,0.65), 0 0 0 1.5px var(--accent-border), 0 0 16px 3px var(--accent-glow);
+  --thumb-grip: rgba(255, 255, 255, 0.22);
+
+  --badge-bg: rgba(255, 255, 255, 0.05);
+  --badge-shadow: 0 0 0 1px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.09);
+  --badge-gloss: rgba(255, 255, 255, 0.06);
+
+  --step-bg: rgba(255, 255, 255, 0.05);
+  --step-hover-bg: rgba(255, 255, 255, 0.09);
+  --step-shadow: 0 0 0 1px rgba(255,255,255,0.07), inset 0 1px 0 rgba(255,255,255,0.08), inset 0 1px 3px rgba(0,0,0,0.4);
+
+  --text: #eeeef2;
+  --text-2: #a0a0aa;
+  --text-3: #606068;
+  --tick: rgba(255, 255, 255, 0.12);
+  --divider: rgba(255, 255, 255, 0.06);
+}
+
+/* ═══════════════════════════════════════════════
+   BASE
+═══════════════════════════════════════════════ */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button, input {
+  font: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+/* ═══════════════════════════════════════════════
+   CARD
+═══════════════════════════════════════════════ */
+.rc-card {
+  width: 340px;
+  max-width: 100%;
+  padding: 20px;
+  background: var(--card-bg);
+  border-radius: var(--radius-card);
+  box-shadow: 0 0 0 1px var(--card-ring), var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: var(--row-gap);
+  transition: background-color 0.3s var(--ease-standard);
+}
+
+.rc-card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 2px 2px 4px;
+}
+
+.rc-card-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.rc-card-hint {
+  font-size: 10.5px;
+  color: var(--text-3);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.rc-divider {
+  height: 1px;
+  margin: 1px 0;
+  background: var(--divider);
+  border: 0;
+}
+
+/* ═══════════════════════════════════════════════
+   TRACK + BADGE ROW (slider + standalone value)
+═══════════════════════════════════════════════ */
+.rc-track-row {
+  display: flex;
+  align-items: stretch;
+  gap: 6px;
+}
+
+.rc-track-row .rc {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* ── Standalone value badge control ── */
+.rc-badge-ctrl {
+  position: relative;
+  flex: none;
+  width: 80px;
+  height: var(--track-h);
+  border-radius: var(--radius-row);
+  background: var(--badge-bg);
+  box-shadow: var(--badge-shadow);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  cursor: default;
+  transition:
+    background 0.18s var(--ease-out),
+    box-shadow 0.18s var(--ease-out);
+}
+
+/* Active state driven by parent row */
+.rc-track-row.is-drag .rc-badge-ctrl,
+.rc-track-row.is-hover .rc-badge-ctrl {
+  background: var(--accent-soft);
+  box-shadow: 0 0 0 1px var(--accent-border), inset 0 1px 0 var(--badge-gloss);
+}
+
+/* Override rc-val inside badge-ctrl: transparent bg, no outer shadow */
+.rc-badge-ctrl .rc-val {
+  position: static;
+  margin: 0;
+  padding-inline: 10px;
+  background: transparent;
+  box-shadow: none;
+  pointer-events: none;
+  height: auto;
+  line-height: normal;
+}
+
+/* Edit input fills the badge ctrl when active */
+.rc-badge-ctrl .rc-edit {
+  position: absolute;
+  inset: 4px;
+  width: auto;
+  height: auto;
+  translate: none;
+  text-align: center;
+  padding-inline: 6px;
+  border-radius: calc(var(--radius-row) - 4px);
+  display: none;
+}
+
+.rc-track-row.is-edit .rc-badge-ctrl .rc-edit {
+  display: block;
+}
+
+.rc-track-row.is-edit .rc-badge-ctrl .rc-val {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════
+   ROW + STEP BUTTON
+═══════════════════════════════════════════════ */
+.rc-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.rc-row .rc-field {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.rc-step {
+  flex: none;
+  width: var(--track-h);
+  height: var(--track-h);
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: var(--radius-row);
+  background: var(--step-bg);
+  box-shadow: var(--step-shadow);
+  color: var(--text-3);
+  cursor: pointer;
+  transition: background 0.14s var(--ease-out), color 0.14s var(--ease-out), scale 0.12s var(--ease-spring), box-shadow 0.16s var(--ease-out);
+}
+
+.rc-step:hover {
+  color: var(--text);
+  background: var(--step-hover-bg);
+  box-shadow: 0 0 0 1px var(--accent-border);
+}
+
+.rc-step:focus-visible {
+  outline: none;
+  color: var(--text);
+  box-shadow: 0 0 0 2px var(--accent-border), 0 0 0 5px var(--accent-glow);
+}
+
+.rc-step:active {
+  scale: 0.9;
+}
+
+/* ═══════════════════════════════════════════════
+   RANGE CONTROL — FIELD
+═══════════════════════════════════════════════ */
+.rc-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--field-gap);
+  min-width: 0;
+}
+
+.rc-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 16px;
+  padding-inline: 3px;
+}
+
+.rc-toplabel {
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: -0.004em;
+  color: var(--text-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: default;
+  user-select: none;
+  transition: color 0.18s var(--ease-out);
+}
+
+.rc-field:hover .rc-toplabel,
+.rc-field:focus-within .rc-toplabel {
+  color: var(--text);
+}
+
+/* ═══════════════════════════════════════════════
+   RANGE CONTROL — TRACK
+═══════════════════════════════════════════════ */
+.rc {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: var(--track-h);
+  border-radius: var(--radius-row);
+  background: var(--track-bg);
+  box-shadow: var(--track-shadow);
+  overflow: hidden;
+  cursor: grab;
+  isolation: isolate;
+  transition: background 0.18s var(--ease-out), box-shadow 0.22s var(--ease-out);
+}
+
+.rc:hover {
+  background: var(--track-hover);
+}
+
+.rc.is-drag {
+  cursor: grabbing;
+}
+
+.rc-focus-ring {
+  position: absolute;
+  inset: -3px;
+  border-radius: calc(var(--radius-row) + 3px);
+  box-shadow: 0 0 0 2px var(--accent-border), 0 0 0 4px var(--accent-glow);
+  pointer-events: none;
+  z-index: 20;
+  opacity: 0;
+  transition: opacity 0.18s var(--ease-out);
+}
+
+.rc-input:focus-visible ~ .rc-focus-ring {
+  opacity: 1;
+}
+
+/* ── Fill ── */
+.rc-fill {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  background: var(--fill-bg);
+  pointer-events: none;
+  z-index: 1;
+  transition: background 0.22s var(--ease-out), width 80ms ease-out, opacity 0.18s var(--ease-out);
+}
+
+.rc:hover .rc-fill {
+  background: var(--fill-bg-hover);
+}
+
+.rc.is-drag .rc-fill {
+  background: var(--fill-bg-drag);
+  transition: background 0.22s var(--ease-out), width 0s;
+}
+
+/* ── Thumb ── */
+.rc-thumb {
+  position: absolute;
+  inset-block: var(--thumb-inset);
+  width: var(--thumb-w);
+  border-radius: 7px;
+  translate: -50% 0;
+  background: linear-gradient(175deg, var(--thumb-bg) 0%, var(--thumb-bg-b) 100%);
+  box-shadow: var(--thumb-ring), var(--thumb-shadow);
+  pointer-events: none;
+  z-index: 5;
+  will-change: left, width;
+  transition: box-shadow 0.22s var(--ease-out), width 0.18s var(--ease-spring), left 80ms ease-out, opacity 0.18s var(--ease-out);
+}
+
+.rc.is-drag .rc-thumb {
+  transition: box-shadow 0.22s var(--ease-out), width 0.18s var(--ease-spring), left 0s;
+}
+
+.rc-thumb::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: repeating-linear-gradient(90deg, var(--thumb-grip) 0, var(--thumb-grip) 1px, transparent 1px, transparent 4px);
+  background-size: 5px 100%;
+  background-position: center;
+  background-repeat: repeat-x;
+  opacity: 0.7;
+  transition: opacity 0.2s var(--ease-out);
+}
+
+.rc.is-drag .rc-thumb::before {
+  opacity: 0.95;
+}
+
+.rc-thumb::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 1.5px;
+  inset-inline: 3px;
+  height: 4px;
+  border-radius: 4px;
+  background: var(--thumb-gloss);
+  opacity: 0.9;
+}
+
+.rc:hover .rc-thumb {
+  width: 24px;
+  box-shadow: var(--thumb-ring), var(--thumb-shadow-hover);
+}
+
+.rc.is-drag .rc-thumb {
+  width: 26px;
+  box-shadow: var(--thumb-shadow-drag);
+}
+
+/* ── Ticks ── */
+.rc-ticks {
+  position: absolute;
+  inset: auto 14px 4px;
+  height: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.2s var(--ease-out);
+}
+
+.rc.is-drag .rc-ticks {
+  opacity: 1;
+}
+
+.rc-ticks i {
+  display: block;
+  width: 1px;
+  height: 3px;
+  background: var(--tick);
+  border-radius: 1px;
+}
+
+.rc-ticks i:nth-child(5n+1) {
+  height: 6px;
+}
+
+/* ── Glow ── */
+.rc-glow {
+  position: absolute;
+  inset-block-start: 50%;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 68%);
+  translate: -50% -50%;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+  will-change: left, opacity;
+  transition: opacity 0.28s var(--ease-out);
+}
+
+.rc.is-drag .rc-glow {
+  opacity: 1;
+}
+
+/* ═══════════════════════════════════════════════
+   MODIFIED MARK + RESET
+═══════════════════════════════════════════════ */
+.rc-mark {
+  flex: none;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+  opacity: 0;
+  scale: 0.4;
+  transition: opacity 0.18s var(--ease-out), scale 0.22s var(--ease-spring);
+}
+
+.rc-field.is-mod .rc-mark {
+  opacity: 1;
+  scale: 1;
+}
+
+.rc-field.is-mod:hover .rc-mark,
+.rc-field.is-mod:focus-within .rc-mark {
+  opacity: 0;
+  scale: 0.4;
+}
+
+.rc-reset {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-inline-start: -1px;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-3);
+  cursor: pointer;
+  opacity: 0;
+  scale: 0.6;
+  rotate: -20deg;
+  pointer-events: none;
+  transition: opacity 0.18s var(--ease-out), scale 0.22s var(--ease-spring), rotate 0.22s var(--ease-spring), color 0.14s var(--ease-out), background 0.14s var(--ease-out);
+}
+
+.rc-field.is-mod:hover .rc-reset,
+.rc-field.is-mod:focus-within .rc-reset {
+  opacity: 1;
+  scale: 1;
+  rotate: 0deg;
+  pointer-events: auto;
+}
+
+.rc-reset:hover {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.rc-reset:focus-visible {
+  outline: none;
+  opacity: 1;
+  scale: 1;
+  rotate: 0deg;
+  pointer-events: auto;
+  color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-border);
+}
+
+.rc-reset:active {
+  scale: 0.85;
+}
+
+/* ═══════════════════════════════════════════════
+   VALUE BADGE (inside .rc-badge-ctrl)
+═══════════════════════════════════════════════ */
+.rc-val {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5px;
+  font-family: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  color: var(--text);
+  white-space: nowrap;
+  user-select: none;
+  transition: opacity 0.16s var(--ease-out);
+}
+
+.rc-val em {
+  font-style: normal;
+  font-size: 9.5px;
+  font-weight: 400;
+  color: var(--text-3);
+  letter-spacing: 0;
+}
+
+.rc-num {
+  display: inline-block;
+  min-width: 3ch;
+  text-align: right;
+}
+
+/* ═══════════════════════════════════════════════
+   NATIVE RANGE INPUT
+═══════════════════════════════════════════════ */
+.rc-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  cursor: inherit;
+  z-index: 10;
+  touch-action: pan-y;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.rc-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 28px;
+  height: var(--track-h);
+  background: transparent;
+  border: 0;
+}
+
+.rc-input::-moz-range-thumb {
+  width: 28px;
+  height: var(--track-h);
+  background: transparent;
+  border: 0;
+}
+
+.rc-input::-webkit-slider-runnable-track {
+  background: transparent;
+  border: 0;
+}
+
+.rc-input::-moz-range-track {
+  background: transparent;
+  border: 0;
+}
+
+.rc-input::-moz-range-progress {
+  background: transparent;
+}
+
+.rc-input::-moz-focus-outer {
+  border: 0;
+}
+
+/* ═══════════════════════════════════════════════
+   INLINE TEXT EDIT (dblclick) — lives in .rc-badge-ctrl
+═══════════════════════════════════════════════ */
+.rc-edit {
+  border: none;
+  border-radius: calc(var(--radius-row) - 4px);
+  background: var(--card-bg);
+  box-shadow: 0 0 0 1.5px var(--accent-border), 0 0 0 4px var(--accent-glow);
+  color: var(--text);
+  font-family: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+  font-size: 11px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  outline: none;
+  display: none;
+}
+
+/* Track dims when editing */
+.rc-track-row.is-edit .rc .rc-input { pointer-events: none; }
+.rc-track-row.is-edit .rc .rc-thumb,
+.rc-track-row.is-edit .rc .rc-fill,
+.rc-track-row.is-edit .rc .rc-glow { opacity: 0.35; }
+.rc-track-row.is-edit .rc { cursor: default; }
+
+/* ═══════════════════════════════════════════════
+   ACCESSIBILITY / RESPONSIVE
+═══════════════════════════════════════════════ */
+@media (hover: none) {
+  .rc-field.is-mod .rc-mark { opacity: 1; scale: 1; }
+  .rc-thumb { width: 24px; }
+}
+
+@media (prefers-contrast: more) {
+  .rc { box-shadow: 0 0 0 1.5px var(--text-2); }
+  .rc-toplabel { color: var(--text); }
+  .rc-val { box-shadow: 0 0 0 1.5px var(--text-2); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .rc-card { width: 100%; }
+  .rc-card-hint { display: none; }
+}
